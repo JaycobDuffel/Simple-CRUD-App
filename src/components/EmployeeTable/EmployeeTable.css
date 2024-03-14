@@ -1,0 +1,31 @@
+.employeeTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.employeeTable th,
+.employeeTable td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.employeeTable th {
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.employeeTable tr {
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}
+
+.actions button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  cursor: pointer;
+}

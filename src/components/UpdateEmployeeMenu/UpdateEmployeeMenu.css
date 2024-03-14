@@ -1,0 +1,24 @@
+.selectedEmployee {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.selectedEmployee__label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.selectedEmployee__input,
+.selectedEmployee__button {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.selectedEmployee__button {
+  background-color: #4CAF50; /* Green color */
+  color: white;
+  cursor: pointer;
+}
