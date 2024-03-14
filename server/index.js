@@ -23,7 +23,6 @@ const corsOptions = {
 app.options("/api/employees/:id", cors(corsOptions));
 
 app.get("/api/employees", cors(corsOptions), (req, res, next) => {
-  console.log("in get endpoint");
   try {
     connectToDb().then((db) => {
       getEmployees(db).then((employees) => {
@@ -39,7 +38,6 @@ app.get("/api/employees", cors(corsOptions), (req, res, next) => {
 });
 
 app.put("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
-  console.log(req.data);
   try {
     const id = req.params.id;
     const { name, profession, city, branch, code, color, assigned } = req.body;
@@ -72,7 +70,6 @@ app.put("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
 });
 
 app.delete("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
-  console.log("delete");
   try {
     const id = req.params.id;
 

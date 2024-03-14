@@ -18,7 +18,6 @@
 }
 
 .selectedEmployee__button {
-  background-color: #4CAF50; /* Green color */
   color: white;
   cursor: pointer;
 }

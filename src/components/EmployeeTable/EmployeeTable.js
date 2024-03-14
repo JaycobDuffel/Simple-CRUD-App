@@ -89,7 +89,7 @@ const EmployeeTable = ({
       <tbody>
         {tableInstance.getRowModel().rows.map((row) => {
           return (
-            <tr key={row.id}>
+            <tr key={row.id} style={{ backgroundColor: row.original.color }}>
               {row.getVisibleCells().map((cell) => {
                 return (
                   <td key={cell.id}>

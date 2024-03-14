@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 import "./UpdateEmployeeMenu.css";
+import UpdateEmployeeRadio from "./UpdateEmployeeRadio";
 
 const UpdateEmployeeMenu = ({
   setEmployees,
@@ -47,7 +48,6 @@ const UpdateEmployeeMenu = ({
       setSelectedEmployee();
     } catch (error) {
       console.error("Error deleting employee:", error);
-      // Handle errors (e.g., display an error message)
     }
   };
 
@@ -63,43 +63,8 @@ const UpdateEmployeeMenu = ({
             <div key={key}>
               {key === "assigned" ? (
                 <>
-                  <>
                     <label htmlFor="assigned">Assigned:</label>
-                    <div className="radio-group">
-                      <label>
-                        <input
-                          type="radio"
-                          id="assigned-true"
-                          name="assigned"
-                          value={true}
-                          checked={selectedEmployee.assigned === true} // Checked if true
-                          onChange={() =>
-                            setSelectedEmployee({
-                              ...selectedEmployee,
-                              assigned: true,
-                            })
-                          }
-                        />
-                        True
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          id="assigned-false"
-                          name="assigned"
-                          value={false}
-                          checked={selectedEmployee.assigned === false} // Checked if false
-                          onChange={() =>
-                            setSelectedEmployee({
-                              ...selectedEmployee,
-                              assigned: false,
-                            })
-                          }
-                        />
-                        False
-                      </label>
-                    </div>
-                  </>
+                    <UpdateEmployeeRadio selectedEmployee={selectedEmployee} setSelectedEmployee={setSelectedEmployee} />
                 </>
               ) : (
                 <div key={key}>

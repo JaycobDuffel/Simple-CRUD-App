@@ -14,7 +14,6 @@ function connectToDb(dbName = "employees.db") {
 }
 
 function getEmployees(db) {
-  console.log("in getEmployees");
   return new Promise((resolve, reject) => {
     const selectQuery = "SELECT * FROM employees";
     db.all(selectQuery, (err, rows) => {
@@ -26,7 +25,6 @@ function getEmployees(db) {
           row.assigned = Boolean(row.assigned);
           return row;
         });
-        console.log("employees");
         resolve(employees);
       }
     });

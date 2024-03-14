@@ -43,7 +43,6 @@ async function populateEmployeeDatabase() {
               resolve();
             }
           });
-          // Insert users after table check
         } else {
           console.log('Table "employees" already exists');
           resolve();
