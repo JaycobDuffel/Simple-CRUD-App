@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { connectToDb, createUser } = require("../database");
+const { connectToDb, createEmployee } = require("../database");
 
 const jsonData = fs.readFileSync(
   require.resolve("../data/employees.json"),
@@ -38,7 +38,7 @@ async function populateEmployeeDatabase() {
             } else {
               console.log('Table "employees" created successfully');
               for (const user of users) {
-                createUser(db, user);
+                createEmployee(db, user);
               }
               resolve();
             }

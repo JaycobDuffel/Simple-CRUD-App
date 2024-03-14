@@ -7,49 +7,82 @@ const {
 const {
   connectToDb,
   getEmployees,
-  createUser,
-  updateUser,
-  deleteUser,
+  updateEmployee,
+  deleteEmployee,
 } = require("./database");
 
 const app = express();
+app.use(express.json());
 
-var corsOptions = {
+const corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
+  methods: ["GET", "DELETE", "PUT"],
 };
 
+app.options("/api/employees/:id", cors(corsOptions));
+
 app.get("/api/employees", cors(corsOptions), (req, res, next) => {
-  console.log("/api/employeeeeees");
+  console.log("in get endpoint");
   try {
     connectToDb().then((db) => {
-      getEmployees(db).then((users) => {
+      getEmployees(db).then((employees) => {
         res.setHeader("Content-Type", "application/json");
         res.status(200);
-        res.json(users);
+        res.json(employees);
       });
     });
   } catch {
-    console.error('Error fetching users:', err);
-    res.status(500).send('Internal Server Error');
+    console.error("Error fetching users:", err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-app.get("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
-  console.log("/api/employees/:id");
-  const employeeId = parseInt(req.params.id); // Extract ID from request parameters
+app.put("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
+  console.log(req.data);
   try {
-    const db = await connectToDb();
-    const user = await getEmployee(db, employeeId);
-    if (user) {
-      res.setHeader("Content-Type", "application/json");
-      res.status(200).json(user);
-    } else {
-      res.status(404).send('Employee not found'); // Use a more specific status code for not found
-    }
-  } catch (err) {
-    console.error('Error fetching employee:', err);
-    res.status(500).send('Internal Server Error');
+    const id = req.params.id;
+    const { name, profession, city, branch, code, color, assigned } = req.body;
+
+    connectToDb().then(async (db) => {
+      const updatedData = {
+        name,
+        profession,
+        city,
+        branch,
+        code,
+        color,
+        assigned: Number(assigned),
+      };
+
+      await updateEmployee(db, id, updatedData);
+
+      connectToDb().then((db) => {
+        getEmployees(db).then((employees) => {
+          res.setHeader("Content-Type", "application/json");
+          res.status(200);
+          res.json(employees);
+        });
+      });
+    });
+  } catch (error) {
+    console.error("Error updating employee:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.delete("/api/employees/:id", cors(corsOptions), async (req, res, next) => {
+  console.log("delete");
+  try {
+    const id = req.params.id;
+
+    connectToDb().then(async (db) => {
+      await deleteEmployee(db, id);
+      res.status(200).send("Employee deleted successfully");
+    });
+  } catch (error) {
+    console.error("Error deleting employee:", error);
+    res.status(500).send("Internal Server Error");
   }
 });
 

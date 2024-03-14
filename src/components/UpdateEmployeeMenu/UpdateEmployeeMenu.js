@@ -23,11 +23,11 @@ const UpdateEmployeeMenu = ({
       );
       setEmployees(response.data);
       setUpdateEmployeeMenuBGColor(selectedEmployee.color);
-  
+
       setSaveSuccess(true);
       setTimeout(() => {
         setSaveSuccess(false);
-      }, 3000)
+      }, 3000);
     } catch (error) {
       console.error("Error updating employee:", error);
     }
@@ -40,7 +40,7 @@ const UpdateEmployeeMenu = ({
       setDeleteSuccess(true);
       setTimeout(() => {
         setDeleteSuccess(false);
-      }, 3000)
+      }, 3000);
 
       const response = await axios.get("http://localhost:8080/api/employees");
       setEmployees(response.data);
@@ -130,9 +130,7 @@ const UpdateEmployeeMenu = ({
               )}
             </div>
           ))}
-          {saveSuccess && (
-            <p>Changes saved successfully!</p>
-          )}
+          {saveSuccess && <p>Changes saved successfully!</p>}
           <button onClick={handleSaveChanges}>Save Changes</button>
           <button onClick={() => handleDelete(selectedEmployee.id)}>
             Delete Employee

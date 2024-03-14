@@ -14,13 +14,20 @@ function connectToDb(dbName = "employees.db") {
 }
 
 function getEmployees(db) {
+  console.log("in getEmployees");
   return new Promise((resolve, reject) => {
     const selectQuery = "SELECT * FROM employees";
     db.all(selectQuery, (err, rows) => {
       if (err) {
         reject(err);
       } else {
-        resolve(rows);
+        const employees = rows.map((row) => {
+          // Convert boolean values (0 or 1) to actual booleans
+          row.assigned = Boolean(row.assigned);
+          return row;
+        });
+        console.log("employees");
+        resolve(employees);
       }
     });
   });
@@ -33,27 +40,27 @@ async function getEmployee(db, userId) {
       if (err) {
         reject(err);
       } else {
-        resolve(row); // Resolve with the user object (or null if not found)
+        resolve(row);
       }
     });
   });
 }
 
-function deleteUser(db, userId) {
+function deleteEmployee(db, id) {
   return new Promise((resolve, reject) => {
-    const deleteQuery = `DELETE FROM employees WHERE id = ?`;
-    db.run(deleteQuery, [userId], (err) => {
+    const deleteQuery = "DELETE FROM employees WHERE id = ?";
+    db.run(deleteQuery, [id], (err) => {
       if (err) {
         reject(err);
       } else {
-        console.log(`User with ID ${userId} deleted successfully`);
+        console.log(`Employee with ID ${id} deleted successfully`);
         resolve();
       }
     });
   });
 }
 
-function createUser(db, user) {
+function createEmployee(db, user) {
   return new Promise((resolve, reject) => {
     const insertQuery = `
       INSERT INTO employees (name, code, profession, color, city, branch, assigned)
@@ -82,43 +89,43 @@ function createUser(db, user) {
   });
 }
 
-function updateUser(db, userId, updateData) {
+function updateEmployee(db, id, updatedData) {
   return new Promise((resolve, reject) => {
-    const SET_CLAUSE_PARTS = [];
-    const queryParams = [];
-
-    // Dynamically build SET clause based on updateData properties
-    for (const key in updateData) {
-      if (updateData.hasOwnProperty(key)) {
-        SET_CLAUSE_PARTS.push(`${key} = ?`);
-        queryParams.push(updateData[key]);
-      }
-    }
-
-    // Construct the final UPDATE query
     const updateQuery = `
       UPDATE employees
-      SET ${SET_CLAUSE_PARTS.join(", ")}
+      SET name = ?, code = ?, profession = ?, color = ?, city = ?, branch = ?, assigned = ?
       WHERE id = ?
     `;
-    queryParams.push(userId); // Add userId as the last parameter
 
-    db.run(updateQuery, queryParams, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        console.log(`User with ID ${userId} updated successfully`);
-        resolve();
+    db.run(
+      updateQuery,
+      [
+        updatedData.name,
+        updatedData.code,
+        updatedData.profession,
+        updatedData.color,
+        updatedData.city,
+        updatedData.branch,
+        Number(updatedData.assigned), // Handle boolean conversion
+        id,
+      ],
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          console.log(`Employee with ID ${id} updated successfully`);
+          resolve();
+        }
       }
-    });
+    );
   });
 }
 
 module.exports = {
   connectToDb,
-  deleteUser,
-  createUser,
+  deleteEmployee,
+  createEmployee,
   getEmployees,
   getEmployee,
-  updateUser,
+  updateEmployee,
 };
