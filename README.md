@@ -20,22 +20,23 @@ Navigate to the Project Directory:
 ### Install
 Bash
 yarn install
-Running the Application:
 
-## Single Terminal:
+## Running the Application:
+
+### Single Terminal:
 
 Bash
 yarn start
 This command will simultaneously start both the React frontend and the backend server, allowing you to interact with the application in a single terminal window.
 
-## Multiple Terminals:
+### Multiple Terminals:
 
-### Frontend:
+Frontend:
 
 Bash
 yarn start:react-app
 
-### Backend Server:
+Backend Server:
 
 Bash
 yarn start:server
