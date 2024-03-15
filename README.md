@@ -27,6 +27,7 @@ yarn install
 
 Bash
 yarn start
+
 This command will simultaneously start both the React frontend and the backend server, allowing you to interact with the application in a single terminal window.
 
 ### Multiple Terminals:
@@ -40,4 +41,5 @@ Backend Server:
 
 Bash
 yarn start:server
+
 This approach enables you to manage the frontend and backend processes separately in distinct terminal windows.
