@@ -5,19 +5,20 @@
   padding: 10px;
 }
 
-.selectedEmployee__label {
+.selectedEmployee label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.selectedEmployee__input,
-.selectedEmployee__button {
+.selectedEmployee input,
+.selectedEmployee button {
   padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 3px;
 }
 
-.selectedEmployee__button {
+.selectedEmployee button {
+  background-color: #008cba;
   color: white;
   cursor: pointer;
 }

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./App.css";
 import EmployeeTable from "./components/EmployeeTable/EmployeeTable";
 import UpdateEmployeeMenu from "./components/UpdateEmployeeMenu/UpdateEmployeeMenu";
+import CreateEmployeeForm from "./components/CreateEmployeeForm/CreateEmployeeForm";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -22,7 +23,8 @@ function App() {
             setUpdateEmployeeMenuBGColor={setUpdateEmployeeMenuBGColor}
           />
         </div>
-        <div>
+        <div className="employeeDisplay">
+          <CreateEmployeeForm setEmployees={setEmployees} />
           <UpdateEmployeeMenu
             setEmployees={setEmployees}
             setSelectedEmployee={setSelectedEmployee}

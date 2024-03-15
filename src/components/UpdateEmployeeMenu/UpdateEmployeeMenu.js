@@ -63,8 +63,11 @@ const UpdateEmployeeMenu = ({
             <div key={key}>
               {key === "assigned" ? (
                 <>
-                    <label htmlFor="assigned">Assigned:</label>
-                    <UpdateEmployeeRadio selectedEmployee={selectedEmployee} setSelectedEmployee={setSelectedEmployee} />
+                  <label htmlFor="assigned">Assigned:</label>
+                  <UpdateEmployeeRadio
+                    selectedEmployee={selectedEmployee}
+                    setSelectedEmployee={setSelectedEmployee}
+                  />
                 </>
               ) : (
                 <div key={key}>
